@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Internet's Ultimate Vibe Check & Virality Generator</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #080811;
+      color: #f3f4f6;
+      overflow-x: hidden;
+    }
+    .font-heading {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .neon-border-pink {
+      box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+      border: 1px solid rgba(255, 0, 127, 0.6);
+    }
+    .neon-border-cyan {
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.4);
+      border: 1px solid rgba(0, 243, 255, 0.6);
+    }
+    .neon-text-pink {
+      text-shadow: 0 0 10px rgba(255, 0, 127, 0.7);
+    }
+    .neon-text-cyan {
+      text-shadow: 0 0 10px rgba(0, 243, 255, 0.7);
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: inline-flex;
+      white-space: nowrap;
+      animation: marquee 25s linear infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- Top Global Vibe Ticker -->
+  <div class="bg-black/60 border-b border-pink-500/30 overflow-hidden py-2 text-xs font-mono text-cyan-400 backdrop-blur-md sticky top-0 z-50">
+    <div class="animate-marquee flex gap-8">
+      <span>🔥 TOKYO: Someone maxed out Goblin Mode (99.8%)</span>
+      <span>⚡ LONDON: Caffeine levels critically low in Soho</span>
+      <span>💥 NEW YORK: Uncontrolled Main Character Energy detected</span>
+      <span>🌟 SYDNEY: Chaos Index reached historic peak (94%)</span>
+      <span>🚀 SEOUL: Golden Vibe Passport issued to @KpopFan22</span>
+      <span>🔥 TOKYO: Someone maxed out Goblin Mode (99.8%)</span>
+      <span>⚡ LONDON: Caffeine levels critically low in Soho</span>
+      <span>💥 NEW YORK: Uncontrolled Main Character Energy detected</span>
+      <span>🌟 SYDNEY: Chaos Index reached historic peak (94%)</span>
+      <span>🚀 SEOUL: Golden Vibe Passport issued to @KpopFan22</span>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="max-w-4xl mx-auto px-4 py-8 flex-1 w-full">
+    
+    <!-- Hero Header -->
+    <header class="text-center mb-10">
+      <div class="inline-block px-3 py-1 bg-pink-500/10 border border-pink-500/30 rounded-full text-pink-400 text-xs font-semibold uppercase tracking-widest mb-3">
+        ✨ Viral Energy Analyzer v2.0
+      </div>
+      <h1 class="text-4xl sm:text-6xl font-extrabold font-heading tracking-tight mb-3">
+        THE INTERNET'S <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 neon-text-pink">VIBE CHECK</span>
+      </h1>
+      <p class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto">
+        Discover your true internet aura, generate your custom Vibe Passport card, and unleash maximum viral energy.
+      </p>
+    </header>
+
+    <!-- Quiz Section -->
+    <section id="quiz-container" class="glass-card rounded-2xl p-6 sm:p-8 neon-border-pink mb-10 transition-all duration-300">
+      <div class="flex justify-between items-center mb-4 text-sm font-semibold">
+        <span id="quiz-step" class="text-pink-400 font-mono">QUESTION 1 OF 5</span>
+        <span id="quiz-category" class="text-cyan-400 font-mono uppercase">Main Energy</span>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full bg-gray-800 rounded-full h-2 mb-8 overflow-hidden">
+        <div id="progress-bar" class="bg-gradient-to-r from-pink-500 to-cyan-400 h-full w-1/5 transition-all duration-300"></div>
+      </div>
+
+      <!-- Question Title -->
+      <h2 id="question-text" class="text-2xl sm:text-3xl font-bold font-heading mb-6">
+        What is your immediate response to a dramatic text message at 2 AM?
+      </h2>
+
+      <!-- Answer Options -->
+      <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- JS injects option buttons here -->
+      </div>
+    </section>
+
+    <!-- Result / Card Generator Section (Hidden initially) -->
+    <section id="result-container" class="hidden glass-card rounded-2xl p-6 sm:p-8 neon-border-cyan mb-10">
+      <div class="text-center mb-6">
+        <span class="inline-block px-3 py-1 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-xs font-semibold uppercase tracking-widest mb-2">
+          🎉 Scan Complete
+        </span>
+        <h2 class="text-3xl font-extrabold font-heading text-white">Your Official Vibe Passport</h2>
+        <p class="text-gray-400 text-sm">Customize your name and avatar, then download or share your viral ID!</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <!-- Canvas Display Container -->
+        <div class="flex flex-col items-center">
+          <canvas id="passport-canvas" width="400" height="520" class="w-full max-w-[320px] rounded-xl shadow-2xl border border-white/20"></canvas>
+        </div>
+
+        <!-- Customization & Actions Form -->
+        <div class="flex flex-col gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Your Handle / Name</label>
+            <input type="text" id="user-name" value="@CyberNomad" class="w-full bg-black/50 border border-cyan-500/40 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-400">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Select Avatar Emoji</label>
+            <div id="avatar-selector" class="flex gap-2">
+              <button class="avatar-btn bg-pink-500/20 border border-pink-500 rounded-lg text-2xl p-2 hover:scale-110 transition" data-emoji="⚡">⚡</button>
+              <button class="avatar-btn bg-black/40 border border-gray-700 rounded-lg text-2xl p-2 hover:scale-110 transition" data-emoji="👾">👾</button>
+              <button class="avatar-btn bg-black/40 border border-gray-700 rounded-lg text-2xl p-2 hover:scale-110 transition" data-emoji="🔥">🔥</button>
+              <button class="avatar-btn bg-black/40 border border-gray-700 rounded-lg text-2xl p-2 hover:scale-110 transition" data-emoji="☕">☕</button>
+              <button class="avatar-btn bg-black/40 border border-gray-700 rounded-lg text-2xl p-2 hover:scale-110 transition" data-emoji="👑">👑</button>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex flex-col gap-3 mt-2">
+            <button id="download-btn" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold py-3 rounded-lg shadow-lg hover:brightness-110 transition flex items-center justify-center gap-2">
+              <span>📥 Download Passport Image</span>
+            </button>
+            <button id="copy-text-btn" class="w-full bg-cyan-500/10 border border-cyan-500/40 text-cyan-400 font-bold py-3 rounded-lg hover:bg-cyan-500/20 transition flex items-center justify-center gap-2">
+              <span>📋 Copy Social Media Caption</span>
+            </button>
+            <button id="retake-btn" class="w-full bg-gray-800 text-gray-300 font-semibold py-2 rounded-lg hover:bg-gray-700 transition">
+              🔄 Retake Quiz
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Viral Soundboard & Interactive Extras -->
+    <section class="glass-card rounded-2xl p-6 mb-10">
+      <h3 class="text-xl font-bold font-heading mb-4 text-pink-400 flex items-center gap-2">
+        <span>🔊</span> Interactive Vibe Soundboard & Particle Cannon
+      </h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <button id="sound-laser" class="bg-black/40 border border-pink-500/30 hover:border-pink-500 py-3 rounded-lg font-semibold text-sm transition hover:bg-pink-500/10">
+          💥 Laser Beam
+        </button>
+        <button id="sound-win" class="bg-black/40 border border-cyan-500/30 hover:border-cyan-500 py-3 rounded-lg font-semibold text-sm transition hover:bg-cyan-500/10">
+          🎺 Victory Chime
+        </button>
+        <button id="sound-coin" class="bg-black/40 border border-purple-500/30 hover:border-purple-500 py-3 rounded-lg font-semibold text-sm transition hover:bg-purple-500/10">
+          🪙 Level Up
+        </button>
+        <button id="btn-confetti" class="bg-gradient-to-r from-yellow-400 to-pink-500 text-black font-extrabold py-3 rounded-lg shadow-md hover:scale-105 transition">
+          🎉 CONFETTI!
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 text-gray-500 text-xs border-t border-gray-800">
+    <p>Built for Instant Virality • Engineered with HTML, Canvas & Web Audio API</p>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 bg-cyan-400 text-black font-bold px-4 py-2 rounded-lg shadow-xl translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    Copied to clipboard! 🚀
+  </div>
+
+  <script>
+    // --- Web Audio API Synth ---
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx;
+
+    function initAudio() {
+      if (!audioCtx) audioCtx = new AudioCtx();
+    }
+
+    function playSynthSound(type) {
+      try {
+        initAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        const now = audioCtx.currentTime;
+
+        if (type === 'laser') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(800, now);
+          osc.frequency.exponentialRampToValueAtTime(100, now + 0.2);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+          osc.start(now);
+          osc.stop(now + 0.2);
+        } else if (type === 'win') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.setValueAtTime(554.37, now + 0.1);
+          osc.frequency.setValueAtTime(659.25, now + 0.2);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+          osc.start(now);
+          osc.stop(now + 0.4);
+        } else if (type === 'coin') {
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(987.77, now);
+          osc.frequency.setValueAtTime(1318.51, now + 0.08);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        } else if (type === 'click') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(300, now);
+          osc.frequency.exponentialRampToValueAtTime(50, now + 0.05);
+          gain.gain.setValueAtTime(0.1, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        }
+      } catch (e) {
+        console.log('Audio error:', e);
+      }
+    }
+
+    // --- Quiz Data & State ---
+    const questions = [
+      {
+        category: "Aura Type",
+        text: "What is your immediate reaction to a dramatic 2 AM text message?",
+        options: [
+          { text: "Reply with 14 voice notes analyzing it", mainChar: 25, chaos: 15, coffee: 10 },
+          { text: "Leave on read, sleep peacefully", mainChar: 10, chaos: 5, coffee: 5 },
+          { text: "Send a cryptic meme instantly", mainChar: 20, chaos: 30, coffee: 15 },
+          { text: "Call them directly while brewing espresso", mainChar: 30, chaos: 20, coffee: 30 }
+        ]
+      },
+      {
+        category: "Energy Source",
+        text: "Choose your primary fuel for daily operations:",
+        options: [
+          { text: "Cold brew iced coffee with 4 shots", mainChar: 15, chaos: 15, coffee: 35 },
+          { text: "Pure spite and adrenaline", mainChar: 25, chaos: 30, coffee: 10 },
+          { text: "Uncontrollable sudden motivation at midnight", mainChar: 20, chaos: 25, coffee: 15 },
+          { text: "8 hours of sleep and green tea", mainChar: 10, chaos: 0, coffee: 5 }
+        ]
+      },
+      {
+        category: "Social Presence",
+        text: "How do you handle being placed on stage unexpectedly?",
+        options: [
+          { text: "Grab the mic and own the spotlight", mainChar: 35, chaos: 20, coffee: 10 },
+          { text: "Do a moonwalk out the side exit", mainChar: 15, chaos: 35, coffee: 10 },
+          { text: "Start giving a TED talk on a random topic", mainChar: 25, chaos: 20, coffee: 20 },
+          { text: "Freeze, smile, and wave politely", mainChar: 10, chaos: 5, coffee: 5 }
+        ]
+      },
+      {
+        category: "Internet Persona",
+        text: "Your browser tabs currently look like:",
+        options: [
+          { text: "74 tabs open, audio playing somewhere", mainChar: 20, chaos: 35, coffee: 20 },
+          { text: "Neatly grouped in 2 color-coded windows", mainChar: 10, chaos: 0, coffee: 10 },
+          { text: "Wikipedia rabbit hole on medieval warfare", mainChar: 15, chaos: 25, coffee: 15 },
+          { text: "Shopping cart with $500 of unbought items", mainChar: 25, chaos: 15, coffee: 10 }
+        ]
+      },
+      {
+        category: "Viral Potential",
+        text: "Pick a secret superpower to dominate the internet:",
+        options: [
+          { text: "Ability to manifest viral trends instantly", mainChar: 30, chaos: 20, coffee: 15 },
+          { text: "Immunity to social awkwardness", mainChar: 25, chaos: 15, coffee: 10 },
+          { text: "Unlimited caffeine processing speed", mainChar: 15, chaos: 20, coffee: 35 },
+          { text: "Telepathic WiFi control", mainChar: 20, chaos: 30, coffee: 10 }
+        ]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let userStats = { mainChar: 20, chaos: 20, coffee: 20, title: "CHILL LEGEND", avatar: "⚡" };
+
+    const quizStepEl = document.getElementById('quiz-step');
+    const quizCatEl = document.getElementById('quiz-category');
+    const questionTextEl = document.getElementById('question-text');
+    const optionsContainerEl = document.getElementById('options-container');
+    const progressBarEl = document.getElementById('progress-bar');
+    const userNameInput = document.getElementById('user-name');
+
+    function loadQuestion() {
+      const q = questions[currentQuestion];
+      quizStepEl.textContent = `QUESTION ${currentQuestion + 1} OF ${questions.length}`;
+      quizCatEl.textContent = q.category;
+      questionTextEl.textContent = q.text;
+      progressBarEl.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+
+      optionsContainerEl.innerHTML = '';
+      q.options.forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.className = "text-left p-4 rounded-xl bg-white/5 border border-white/10 hover:border-pink-500/80 hover:bg-pink-500/10 transition-all font-semibold text-sm sm:text-base flex items-center justify-between group";
+        btn.innerHTML = `
+          <span>${opt.text}</span>
+          <span class="opacity-0 group-hover:opacity-100 text-pink-400 transition">➔</span>
+        `;
+        btn.onclick = () => {
+          playSynthSound('click');
+          userStats.mainChar += opt.mainChar;
+          userStats.chaos += opt.chaos;
+          userStats.coffee += opt.coffee;
+
+          if (currentQuestion < questions.length - 1) {
+            currentQuestion++;
+            loadQuestion();
+          } else {
+            finishQuiz();
+          }
+        };
+        optionsContainerEl.appendChild(btn);
+      });
+    }
+
+    function finishQuiz() {
+      // Determine dynamic title based on scores
+      if (userStats.mainChar >= 80) userStats.title = "MAIN CHARACTER";
+      else if (userStats.chaos >= 80) userStats.title = "UNHINGED CHAOS";
+      else if (userStats.coffee >= 80) userStats.title = "CAFFEINE OVERLORD";
+      else userStats.title = "AURA GOD";
+
+      document.getElementById('quiz-container').classList.add('hidden');
+      document.getElementById('result-container').classList.remove('hidden');
+
+      playSynthSound('win');
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      drawPassportCard();
+    }
+
+    // --- HTML5 Canvas Passport Rendering ---
+    const canvas = document.getElementById('passport-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function drawPassportCard() {
+      const width = canvas.width;
+      const height = canvas.height;
+
+      // Background Gradient
+      const grad = ctx.createLinearGradient(0, 0, width, height);
+      grad.addColorStop(0, '#0f0c20');
+      grad.addColorStop(1, '#05020a');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
+
+      // Neon Outer Border
+      ctx.strokeStyle = '#00f3ff';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(10, 10, width - 20, height - 20);
+
+      // Inner Accent Lines
+      ctx.strokeStyle = '#ff007f';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(16, 16, width - 32, height - 32);
+
+      // Header Text
+      ctx.fillStyle = '#ff007f';
+      ctx.font = 'bold 12px "Space Grotesk", sans-serif';
+      ctx.fillText("INTERNET VIBE AUTHORITY", 30, 45);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 22px "Space Grotesk", sans-serif';
+      ctx.fillText("VIBE PASSPORT", 30, 72);
+
+      // Avatar Circle
+      ctx.beginPath();
+      ctx.arc(70, 140, 35, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 0, 127, 0.2)';
+      ctx.fill();
+      ctx.strokeStyle = '#ff007f';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Avatar Emoji
+      ctx.font = '32px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(userStats.avatar, 70, 151);
+
+      // Name & Title
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#00f3ff';
+      ctx.font = 'bold 18px "Space Grotesk", sans-serif';
+      const name = userNameInput.value.trim() || "@CyberGuest";
+      ctx.fillText(name.substring(0, 16), 120, 135);
+
+      ctx.fillStyle = '#e5e7eb';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText(`STATUS: ${userStats.title}`, 120, 158);
+
+      // Divider
+      ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+      ctx.beginPath();
+      ctx.moveTo(30, 195);
+      ctx.lineTo(width - 30, 195);
+      ctx.stroke();
+
+      // Stats Section
+      const statsList = [
+        { label: "Main Character Energy", val: Math.min(99, userStats.mainChar), color: "#ff007f" },
+        { label: "Chaos Level", val: Math.min(99, userStats.chaos), color: "#00f3ff" },
+        { label: "Coffee-to-Blood Ratio", val: Math.min(99, userStats.coffee), color: "#a855f7" }
+      ];
+
+      let startY = 225;
+      statsList.forEach(s => {
+        ctx.fillStyle = '#9ca3af';
+        ctx.font = '11px sans-serif';
+        ctx.fillText(s.label.toUpperCase(), 30, startY);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 12px sans-serif';
+        ctx.fillText(`${s.val}%`, width - 60, startY);
+
+        // Progress Bar Track
+        ctx.fillStyle = 'rgba(255,255,255,0.1)';
+        ctx.fillRect(30, startY + 8, width - 60, 8);
+
+        // Progress Fill
+        ctx.fillStyle = s.color;
+        ctx.fillRect(30, startY + 8, ((width - 60) * s.val) / 100, 8);
+
+        startY += 48;
+      });
+
+      // Bottom Stamp Badge
+      ctx.save();
+      ctx.translate(width - 90, height - 70);
+      ctx.rotate(-0.15);
+      ctx.strokeStyle = '#39ff14';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(-45, -15, 90, 30);
+      ctx.fillStyle = '#39ff14';
+      ctx.font = 'bold 10px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText("VERIFIED VIBE", 0, 4);
+      ctx.restore();
+
+      // Footer Stamp
+      ctx.fillStyle = '#6b7280';
+      ctx.font = '10px monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText(`ID: ${Math.floor(Math.random() * 899999 + 100000)} • 100% VIRAL`, 30, height - 30);
+    }
+
+    // --- Interactive Event Listeners ---
+    userNameInput.addEventListener('input', drawPassportCard);
+
+    document.querySelectorAll('.avatar-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        playSynthSound('click');
+        document.querySelectorAll('.avatar-btn').forEach(b => {
+          b.className = 'avatar-btn bg-black/40 border border-gray-700 rounded-lg text-2xl p-2 hover:scale-110 transition';
+        });
+        btn.className = 'avatar-btn bg-pink-500/20 border border-pink-500 rounded-lg text-2xl p-2 hover:scale-110 transition';
+        userStats.avatar = btn.getAttribute('data-emoji');
+        drawPassportCard();
+      });
+    });
+
+    document.getElementById('download-btn').addEventListener('click', () => {
+      playSynthSound('coin');
+      const link = document.createElement('a');
+      link.download = `Vibe-Passport-${userNameInput.value || 'Viral'}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      toast.textContent = text;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    document.getElementById('copy-text-btn').addEventListener('click', () => {
+      playSynthSound('click');
+      const text = `🚨 MY VIBE CHECK RESULTS 🚨\nName: ${userNameInput.value}\nStatus: ${userStats.title}\n✨ Main Character Energy: ${Math.min(99, userStats.mainChar)}%\n💥 Chaos Level: ${Math.min(99, userStats.chaos)}%\n☕ Coffee Ratio: ${Math.min(99, userStats.coffee)}%\n\nCheck your vibe now! 🚀`;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("Caption copied to clipboard! 📋");
+      });
+    });
+
+    document.getElementById('retake-btn').addEventListener('click', () => {
+      playSynthSound('click');
+      currentQuestion = 0;
+      userStats = { mainChar: 20, chaos: 20, coffee: 20, title: "CHILL LEGEND", avatar: "⚡" };
+      document.getElementById('result-container').classList.add('hidden');
+      document.getElementById('quiz-container').classList.remove('hidden');
+      loadQuestion();
+    });
+
+    // Soundboard
+    document.getElementById('sound-laser').addEventListener('click', () => playSynthSound('laser'));
+    document.getElementById('sound-win').addEventListener('click', () => playSynthSound('win'));
+    document.getElementById('sound-coin').addEventListener('click', () => playSynthSound('coin'));
+    document.getElementById('btn-confetti').addEventListener('click', () => {
+      playSynthSound('win');
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.7 } });
+    });
+
+    // Init App
+    loadQuestion();
+  </script>
+</body>
+</html>
